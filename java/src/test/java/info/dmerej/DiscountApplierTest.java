@@ -20,6 +20,9 @@ public class DiscountApplierTest {
     }
   }
 
+  @Mock
+  Notifier notifierMock;
+
 
   @Test
   void should_notify_twice_when_applying_discount_for_two_users_v1() {
@@ -29,6 +32,19 @@ public class DiscountApplierTest {
   @Test
   void should_notify_twice_when_applying_discount_for_two_users_v2() {
     // TODO: write a test to demonstrate the bug in DiscountApplier.applyV2()
+  }
+
+  @Test
+  void should_notify_twice_when_applying_discount_for_two_users_v1_mock() {
+    //Given
+    List<User> users = List.of(new User("Alice", "alice@test.com"), new User("Bob", "bob@test.com"));
+    when(notifierMock.notify(any(),any())).thenThrow()
+    DiscountApplier discountApplier = new DiscountApplier(notifierMock);
+
+    //When
+    discountApplier.applyV1(10, users);
+
+    //Then
   }
 
 }
